@@ -19,15 +19,15 @@
   <meta name="author" content="Hikilop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本篇博客纯是搬运知乎用户 风影忍着 的 Python闭包(Closure) 详解             一般来说，我们无法在函数外访问函数内部的局部变量： 12345def func():zh	n &#x3D; 999print(n)# NameError: name &#x27;n&#x27; is not defined 但是下面的写法给了外部访问函数内的局部变量的可能： 1">
+    <meta name="description" content="本篇博客纯是搬运知乎用户 风影忍着 的 Python闭包(Closure) 详解             一般来说，我们无法在函数外访问函数内部的局部变量： 12345def func():	n &#x3D; 999print(n)# NameError: name &#x27;n&#x27; is not defined 但是下面的写法给了外部访问函数内的局部变量的可能： 123">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python闭包学习">
 <meta property="og:url" content="http://example.com/2024/09/13/%E9%97%AD%E5%8C%85/index.html">
 <meta property="og:site_name" content="Hikilop&#39;s Blog —— 肥西路电脑维修">
-<meta property="og:description" content="本篇博客纯是搬运知乎用户 风影忍着 的 Python闭包(Closure) 详解             一般来说，我们无法在函数外访问函数内部的局部变量： 12345def func():zh	n &#x3D; 999print(n)# NameError: name &#x27;n&#x27; is not defined 但是下面的写法给了外部访问函数内的局部变量的可能： 1">
+<meta property="og:description" content="本篇博客纯是搬运知乎用户 风影忍着 的 Python闭包(Closure) 详解             一般来说，我们无法在函数外访问函数内部的局部变量： 12345def func():	n &#x3D; 999print(n)# NameError: name &#x27;n&#x27; is not defined 但是下面的写法给了外部访问函数内的局部变量的可能： 123">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-13T14:06:58.000Z">
-<meta property="article:modified_time" content="2024-09-13T14:09:16.759Z">
+<meta property="article:modified_time" content="2024-09-13T16:23:12.336Z">
 <meta property="article:author" content="Hikilop">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,16 +285,17 @@
           </div>
 
 <p>一般来说，我们无法在函数外访问函数内部的局部变量：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>():<br>zh	n = <span class="hljs-number">999</span><br><br><span class="hljs-built_in">print</span>(n)<br><span class="hljs-comment"># NameError: name &#x27;n&#x27; is not defined</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>():<br>	n = <span class="hljs-number">999</span><br><br><span class="hljs-built_in">print</span>(n)<br><span class="hljs-comment"># NameError: name &#x27;n&#x27; is not defined</span><br></code></pre></td></tr></table></figure>
 <p>但是下面的写法给了外部访问函数内的局部变量的可能：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">f1</span>():<br>	n = <span class="hljs-number">999</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">f2</span>():<br>		<span class="hljs-built_in">print</span>(n)<br>	<span class="hljs-keyword">return</span> f2<br><br>result = f1()<br>result()<br></code></pre></td></tr></table></figure>
-<p>这，就是闭包的一个例子。</p>
+<p>上面就是闭包的一个例子。</p>
 <h2 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h2><p>通过上面的例子就可以概括出闭包概念的一种解释：<strong>闭包就是能够读取外部函数内的变量的函数</strong>。通过它，我们可以:</p>
 <ol>
 <li>保护私有变量</li>
 <li>延迟执行</li>
-<li>缓存数据<br>我们熟知的语言中，Python和Javascript都支持闭包。</li>
+<li>缓存数据</li>
 </ol>
+<p>我们熟知的语言中，Python和Javascript都支持闭包。</p>
 <h2 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h2><p>下面将通过一些具体的例子来介绍闭包的一些用处：</p>
 <h3 id="读取函数内部的变量"><a href="#读取函数内部的变量" class="headerlink" title="读取函数内部的变量"></a>读取函数内部的变量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">tag</span>(<span class="hljs-params">tag_name</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">add_tag</span>(<span class="hljs-params">content</span>):<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&lt;&#123;0&#125;&gt;&#123;1&#125;&lt;/&#123;0&#125;&gt;&quot;</span>.<span class="hljs-built_in">format</span>(tag_name, content)<br>	<span class="hljs-keyword">return</span> add_tag<br><br>content = <span class="hljs-string">&quot;Hello&quot;</span><br><br>add_tag = tag(<span class="hljs-string">&#x27;a&#x27;</span>)<br><span class="hljs-built_in">print</span>(add_tag(content))<br><span class="hljs-comment"># Output: &lt;a&gt;Hello&lt;/a&gt;</span><br><br>add_tag = tag(<span class="hljs-string">&#x27;b&#x27;</span>)<br><span class="hljs-built_in">print</span>(add_tag(content))<br><span class="hljs-comment">#Output: &lt;b&gt;Hello&lt;/a&gt;</span><br></code></pre></td></tr></table></figure>
 <p>这里可以将闭包视作轻量级的接口封装：假如我们的目标是希望实现一个给<code>content</code>添加<code>tag</code>的功能，但是具体要添加什么tag要根据实际需求来确定。外部的调用接口是<code>add_tag(content)</code>的形式，那么上面这种写法就很好满足需求。</p>

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/Roxy_Summer.png">
 <meta property="article:published_time" content="2024-09-10T16:32:59.000Z">
-<meta property="article:modified_time" content="2024-09-12T07:29:35.188Z">
+<meta property="article:modified_time" content="2024-09-20T08:02:05.349Z">
 <meta property="article:author" content="Hikilop">
 <meta property="article:tag" content="PyTorch">
 <meta property="article:tag" content="DeepLearning">
@@ -342,7 +342,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          3.9k 字
         
       </span>
     
@@ -417,7 +417,7 @@ mjx-container[display="true"] + br {
           </div>
 <p>这里的<code>stack</code> 方法实际上就是在一个新的维度上连接一序列张量，这要求所有传入的张量具有相同的形状，下面是一个例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python">t1 = torch.tensor([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],<br>                   [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])<br>t2 = torch.tensor([[<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>],<br>                   [<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>]])<br>x1 = torch.stack((t1, t2))<br><span class="hljs-built_in">print</span>(x1)<br>x2 = torch.stack((t1, t2), dim=<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(x2)<br>x3 = torch.stack((t1, t2), dim=<span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(x3)<br><span class="hljs-string">'''</span><br><span class="hljs-string">output:</span><br><span class="hljs-string">tensor([[[ 1,  2,  3],</span><br><span class="hljs-string">         [ 4,  5,  6]],</span><br><span class="hljs-string"></span><br><span class="hljs-string">        [[ 7,  8,  9],</span><br><span class="hljs-string">         [10, 11, 12]]])</span><br><span class="hljs-string">tensor([[[ 1,  2,  3],</span><br><span class="hljs-string">         [ 7,  8,  9]],</span><br><span class="hljs-string"></span><br><span class="hljs-string">        [[ 4,  5,  6],</span><br><span class="hljs-string">         [10, 11, 12]]])</span><br><span class="hljs-string">tensor([[[ 1,  7],</span><br><span class="hljs-string">         [ 2,  8],</span><br><span class="hljs-string">         [ 3,  9]],</span><br><span class="hljs-string"></span><br><span class="hljs-string">        [[ 4, 10],</span><br><span class="hljs-string">         [ 5, 11],</span><br><span class="hljs-string">         [ 6, 12]]])</span><br><span class="hljs-string"></span><br><span class="hljs-string">'''</span><br></code></pre></td></tr></table></figure>
-<p>![[Pasted image 20240910161635.png]]<br>对于二维张量的堆叠可以参考上面这张图片，并对不同维度赋予不同含义。</p>
+
 <div class="note note-info">
             <p>实际上我们也可以看到，对于两个张量的堆叠而言，实际上在旋转不变的角度下只会产生一种形状，而我们传入的参数实际上就定义了观察这个形状的坐标轴。（可以画一个立方体通过不同角度观察）</p>
           </div>
@@ -492,7 +492,7 @@ mjx-container[display="true"] + br {
 <h2 id="Automatic-Differentiation-with-torch-autograd"><a href="#Automatic-Differentiation-with-torch-autograd" class="headerlink" title="Automatic Differentiation with torch.autograd"></a>Automatic Differentiation with <code>torch.autograd</code></h2><p>在反向传播算法中，模型的权重参数会依据损失函数对于每个参数的梯度被调整。为了计算这些参数，PyTorch有一个内置的求导引擎——<code>torch.autograd</code>。它支持对于任意计算图的自动计算。</p>
 <p>考虑一个最简单的一层神经网络：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br>x = torch.ones(<span class="hljs-number">5</span>)  <span class="hljs-comment"># input tensor</span><br>y = torch.zeros(<span class="hljs-number">3</span>)  <span class="hljs-comment"># expected output</span><br>w = torch.randn(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, requires_grad=<span class="hljs-literal">True</span>)<br>b = torch.randn(<span class="hljs-number">3</span>, requires_grad=<span class="hljs-literal">True</span>)<br>z = torch.matmul(x, w)+b<br>loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)<br></code></pre></td></tr></table></figure>
-<h3 id="张量、函数和计算图"><a href="#张量、函数和计算图" class="headerlink" title="张量、函数和计算图"></a>张量、函数和计算图</h3><p>上面的这个一层神经网络将带来下面这样的计算图：<br>![[Pasted image 20240910185645.png]]<br>对于参数w和b，需要设置<code>requires_grad_(True)</code>。</p>
+<h3 id="张量、函数和计算图"><a href="#张量、函数和计算图" class="headerlink" title="张量、函数和计算图"></a>张量、函数和计算图</h3><p>上面的这个一层神经网络将带来下面这样的计算图：<br><img src="/img/compute_graph.png" srcset="/img/loading.gif" lazyload><br>对于参数w和b，需要设置<code>requires_grad_(True)</code>。</p>
 <p>通过<code>z.grad_fn</code>和<code>loss.grad_fn</code>可以访问z和损失的梯度函数。</p>
 <h3 id="计算梯度"><a href="#计算梯度" class="headerlink" title="计算梯度"></a>计算梯度</h3><p>计算对w和b的偏导数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">loss.backward()<br><span class="hljs-built_in">print</span>(w.grad)<br><span class="hljs-built_in">print</span>(b.grad)<br></code></pre></td></tr></table></figure>
@@ -575,7 +575,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
   
   
 
